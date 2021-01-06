@@ -1,0 +1,16 @@
+version: '2.4'
+
+services:
+  db:
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+    - "3306:3306"
+    volumes:
+    - spring_data:/var/lib/mysql
+    mem_limit: 1024m
+
+volumes:
+  spring_data:

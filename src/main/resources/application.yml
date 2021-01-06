@@ -1,0 +1,21 @@
+
+server:
+  error:
+    include-stacktrace: on_param
+
+spring:
+  application:
+    name: orange-bank
+  datasource:
+    url: jdbc:mysql://localhost:3306/orange?createDatabaseIfNotExist=true
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
