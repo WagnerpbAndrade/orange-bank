@@ -3,6 +3,7 @@ package br.com.wagnerandrade.orangebank.api.core.resource;
 import br.com.wagnerandrade.orangebank.api.core.interfaces.ICustomerService;
 import br.com.wagnerandrade.orangebank.api.core.transport.CustomerDTO;
 import br.com.wagnerandrade.orangebank.api.core.transport.requests.CustomerPostRequestDTO;
+import br.com.wagnerandrade.orangebank.api.core.transport.requests.CustomerPutRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +32,17 @@ public class CustomerResource {
     @PostMapping
     public ResponseEntity<CustomerDTO> insert(@Valid @RequestBody CustomerPostRequestDTO postRequestDTO) {
         return new ResponseEntity(this.service.save(postRequestDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> update(@RequestBody CustomerPutRequestDTO putRequestDTO) {
+        this.service.update(putRequestDTO);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        this.service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
