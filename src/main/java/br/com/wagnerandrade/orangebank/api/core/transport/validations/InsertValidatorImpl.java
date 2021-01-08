@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class CPFInsertValidator implements ConstraintValidator<ICPFInsertValidator, CustomerPostRequestDTO> {
+public class InsertValidatorImpl implements ConstraintValidator<InsertValidator, CustomerPostRequestDTO> {
 
     private final CustomerRepository repository;
 
@@ -21,9 +21,13 @@ public class CPFInsertValidator implements ConstraintValidator<ICPFInsertValidat
         List<ValidationExceptionDetails> list = new ArrayList<>();
 
         Customer customer = this.repository.findByCpf(objDTO.getCpf());
-
         if (customer != null) {
             list.add(new ValidationExceptionDetails("cpf", "CPF already exists"));
+        }
+
+        customer = this.repository.findByEmail(objDTO.getEmail());
+        if (customer != null) {
+            list.add(new ValidationExceptionDetails("email", "E-mail already exists"));
         }
 
         for (ValidationExceptionDetails v : list) {
@@ -31,7 +35,6 @@ public class CPFInsertValidator implements ConstraintValidator<ICPFInsertValidat
             context.buildConstraintViolationWithTemplate(v.getFieldsMessage()).addPropertyNode(v.getFields())
                     .addConstraintViolation();
         }
-
         return list.isEmpty();
     }
 }

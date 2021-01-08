@@ -1,5 +1,6 @@
 package br.com.wagnerandrade.orangebank.api.core.transport.requests;
 
+import br.com.wagnerandrade.orangebank.api.core.transport.validations.UpdateValidator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@UpdateValidator
 public class CustomerPutRequestDTO {
 
     private Long id;
@@ -27,6 +29,7 @@ public class CustomerPutRequestDTO {
     private String name;
 
     @Email(message = "Email cannot be invalid")
+    @NotEmpty(message = "Email cannot be empty")
     private String email;
 
     @CPF(message = "CPF cannot be invalid")

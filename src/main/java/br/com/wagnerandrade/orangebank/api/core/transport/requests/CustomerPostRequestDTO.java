@@ -1,6 +1,6 @@
 package br.com.wagnerandrade.orangebank.api.core.transport.requests;
 
-import br.com.wagnerandrade.orangebank.api.core.transport.validations.ICPFInsertValidator;
+import br.com.wagnerandrade.orangebank.api.core.transport.validations.InsertValidator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ICPFInsertValidator
+@InsertValidator
 public class CustomerPostRequestDTO {
 
     @NotEmpty(message = "Name cannot be empty")

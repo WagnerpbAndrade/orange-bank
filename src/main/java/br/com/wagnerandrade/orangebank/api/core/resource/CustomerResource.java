@@ -35,7 +35,7 @@ public class CustomerResource {
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@RequestBody CustomerPutRequestDTO putRequestDTO) {
+    public ResponseEntity<Void> update(@Valid @RequestBody CustomerPutRequestDTO putRequestDTO) {
         this.service.update(putRequestDTO);
         return ResponseEntity.noContent().build();
     }
