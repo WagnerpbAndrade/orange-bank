@@ -48,12 +48,12 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void update(CustomerPutRequestDTO putRequestDTO) {
+    public CustomerDTO update(CustomerPutRequestDTO putRequestDTO) {
         Customer customer = CustomerMapper.INSTANCE.toCustomer(this.findByIdOrThrowBadRequestException(putRequestDTO.getId()));
 
         updateData(customer, putRequestDTO);
 
-        this.repository.save(customer);
+        return CustomerMapper.INSTANCE.toCustomerDTO(this.repository.save(customer));
     }
 
     @Override

@@ -14,7 +14,7 @@ public interface ICustomerService {
 
     CustomerDTO save(CustomerPostRequestDTO postRequestDTO);
 
-    void update(CustomerPutRequestDTO putRequestDTO);
+    CustomerDTO update(CustomerPutRequestDTO putRequestDTO);
 
     void delete(Long id);
 }
