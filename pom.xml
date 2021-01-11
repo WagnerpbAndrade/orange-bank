@@ -12,7 +12,7 @@
     <artifactId>orange-bank</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>orange-bank</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Desafio Orange Talents</description>
 
     <properties>
         <java.version>11</java.version>
@@ -23,13 +23,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.4.27.Final</version>
         </dependency>
 
         <dependency>
@@ -102,5 +95,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

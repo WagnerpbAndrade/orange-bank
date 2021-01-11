@@ -1,6 +1,6 @@
 package br.com.wagnerandrade.orangebank.api.core.resource;
 
-import br.com.wagnerandrade.orangebank.api.core.interfaces.ICustomerService;
+import br.com.wagnerandrade.orangebank.api.core.interfaces.CustomerService;
 import br.com.wagnerandrade.orangebank.api.core.transport.CustomerDTO;
 import br.com.wagnerandrade.orangebank.api.core.transport.requests.CustomerPostRequestDTO;
 import br.com.wagnerandrade.orangebank.api.core.transport.requests.CustomerPutRequestDTO;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/v1/customers")
 public class CustomerResource {
 
-    private final ICustomerService service;
+    private final CustomerService service;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<CustomerDTO> findById(@PathVariable Long id) {

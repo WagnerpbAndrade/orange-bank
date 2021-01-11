@@ -20,6 +20,14 @@ public class UpdateValidatorImpl implements ConstraintValidator<UpdateValidator,
     public boolean isValid(CustomerPutRequestDTO objDTO, ConstraintValidatorContext context) {
         List<ValidationExceptionDetails> list = new ArrayList<>();
 
+        if (objDTO.getId() == null) {
+            list.add(new ValidationExceptionDetails("id", "Id cannot be null"));
+        }
+
+        if (objDTO.getBirthdate() == null) {
+            list.add(new ValidationExceptionDetails("birthdate", "Birthdate cannot be null"));
+        }
+
         Customer customer = this.repository.findByCpf(objDTO.getCpf());
         if (customer != null && !customer.getId().equals(objDTO.getId())) {
             list.add(new ValidationExceptionDetails("cpf", "CPF already exists"));

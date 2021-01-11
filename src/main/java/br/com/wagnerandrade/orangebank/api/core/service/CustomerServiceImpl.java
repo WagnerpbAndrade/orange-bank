@@ -1,7 +1,7 @@
 package br.com.wagnerandrade.orangebank.api.core.service;
 
 import br.com.wagnerandrade.orangebank.api.core.domain.Customer;
-import br.com.wagnerandrade.orangebank.api.core.interfaces.ICustomerService;
+import br.com.wagnerandrade.orangebank.api.core.interfaces.CustomerService;
 import br.com.wagnerandrade.orangebank.api.core.mappers.CustomerMapper;
 import br.com.wagnerandrade.orangebank.api.core.repository.CustomerRepository;
 import br.com.wagnerandrade.orangebank.api.core.transport.CustomerDTO;
@@ -18,14 +18,15 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class CustomerServiceImpl implements ICustomerService {
+public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository repository;
+    private final CustomerMapper mapper = CustomerMapper.INSTANCE;
 
     @Override
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public CustomerDTO findByIdOrThrowBadRequestException(Long id) {
-        return CustomerMapper.INSTANCE
+        return this.mapper
                 .toCustomerDTO(this.repository
                         .findById(id)
                         .orElseThrow(() -> new BadRequestException("Customer not found")));
@@ -35,31 +36,31 @@ public class CustomerServiceImpl implements ICustomerService {
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public List<CustomerDTO> findAll() {
         return this.repository.findAll().stream()
-                .map(CustomerMapper.INSTANCE::toCustomerDTO)
+                .map(this.mapper::toCustomerDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public CustomerDTO save(CustomerPostRequestDTO postRequestDTO) {
-        Customer customer = CustomerMapper.INSTANCE.toCustomer(postRequestDTO);
-        return CustomerMapper.INSTANCE.toCustomerDTO(this.repository.save(customer));
+        Customer customer = this.mapper.toCustomer(postRequestDTO);
+        return this.mapper.toCustomerDTO(this.repository.save(customer));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public CustomerDTO update(CustomerPutRequestDTO putRequestDTO) {
-        Customer customer = CustomerMapper.INSTANCE.toCustomer(this.findByIdOrThrowBadRequestException(putRequestDTO.getId()));
+        Customer customer = this.mapper.toCustomer(this.findByIdOrThrowBadRequestException(putRequestDTO.getId()));
 
         updateData(customer, putRequestDTO);
 
-        return CustomerMapper.INSTANCE.toCustomerDTO(this.repository.save(customer));
+        return this.mapper.toCustomerDTO(this.repository.save(customer));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
-        Long customerId = CustomerMapper.INSTANCE.toCustomer(this.findByIdOrThrowBadRequestException(id)).getId();
+        Long customerId = this.mapper.toCustomer(this.findByIdOrThrowBadRequestException(id)).getId();
         this.repository.deleteById(customerId);
     }
 

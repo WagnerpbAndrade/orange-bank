@@ -6,7 +6,7 @@ import br.com.wagnerandrade.orangebank.api.core.transport.requests.CustomerPutRe
 
 import java.util.List;
 
-public interface ICustomerService {
+public interface CustomerService {
 
     CustomerDTO findByIdOrThrowBadRequestException(Long id);
 

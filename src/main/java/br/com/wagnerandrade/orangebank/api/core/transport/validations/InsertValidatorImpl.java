@@ -20,6 +20,10 @@ public class InsertValidatorImpl implements ConstraintValidator<InsertValidator,
     public boolean isValid(CustomerPostRequestDTO objDTO, ConstraintValidatorContext context) {
         List<ValidationExceptionDetails> list = new ArrayList<>();
 
+        if (objDTO.getBirthdate() == null) {
+            list.add(new ValidationExceptionDetails("birthdate", "Birthdate cannot be null"));
+        }
+
         Customer customer = this.repository.findByCpf(objDTO.getCpf());
         if (customer != null) {
             list.add(new ValidationExceptionDetails("cpf", "CPF already exists"));
